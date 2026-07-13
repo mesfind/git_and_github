@@ -1,0 +1,1187 @@
+---
+format:
+  revealjs:
+    theme: [default, mytheme.scss]
+    mermaid:
+      theme: "default"
+      format: "svg"   
+    css: styles.css
+    footer: "EPHI / NDMC Hackathon — 2026"
+    width: 1600
+    height: 900
+    auto-stretch: true
+    navigation-mode: linear
+    controls: true
+    controls-layout: edges
+    slide-number: c/t
+    hash: true
+    code-copy: hover
+    code-link: true
+    code-overflow: scroll
+    embed-resources: false
+# Force initialization of layout tools
+keep-md: true
+embed-resources: true
+execute:
+  eval: false
+  echo: true
+---
+
+<div style="text-align: center;">
+
+<h1 style="font-size: 2.5em; margin: 1rem 0; color: #2c3e50;">
+Reproducibility and Distributed Version Control<br>
+</h1>
+
+
+<div style="margin-top: 3rem;">
+  <p style="font-size: 1.4em; color: #2c2c2c; margin: 0; font-weight: 700; letter-spacing: 2px;">
+ <br> </br>
+    Mesfin D. (PhD)
+     <br> </br>
+  </p>
+  <p style="font-size: 1.1em; color: #666; margin-top: 0.6rem;">
+    <br> </br>
+    July, 2026
+  <br> </br>
+  Hackathon Theme: Bridging Modeling & Policy to Solve Public Health Challenges
+  <br> </br>
+  </p>
+</div>
+
+</div>
+
+:::: {.columns}
+::: {.column width="100%"}
+
+![](fig/ephi_logo.png){width="10%"}
+
+:::
+::::
+
+
+
+## What is Version Control?
+
+- A **version control system (VCS)** tracks changes to files over time.
+- It allows you to:
+  - Recover older versions (like a time machine).
+  - See *who* changed *what* and *why* (commit messages).
+  - Work on multiple features simultaneously (branches).
+  - Merge changes from different people.
+- Without VCS, we rely on manual backups – chaotic.
+
+
+> Git is the most popular modern VCS – we will use it throughout.
+
+---
+
+## Git vs GitHub – The Difference
+
+| **Git** | **GitHub** |
+|---------|------------|
+| A **command-line tool** that runs locally on your computer | A **cloud platform** that hosts Git repositories |
+| Manages commits, branches, and history | Provides a web UI, Issues, Projects, and Actions |
+| Works entirely offline | Requires internet for collaboration |
+
+> **Analogy:** Git is the engine; GitHub is the garage where you store and share your car.
+
+---
+
+## Distributed Version Control Systems (DVCS)
+
+- **Centralised** (e.g., SVN): a single server holds all history – single point of failure.
+- **Distributed** (Git): every developer has a **full copy** of the repository.
+  - Work offline, commit locally.
+  - Sync with any other copy when online.
+
+> **Key takeaway:** Git is distributed – every laptop is a full backup.
+
+---
+
+## Installing Git (All Operating Systems)
+
+::: {.panel-tabset}
+### Linux (Ubuntu/Debian)
+```bash
+sudo apt update
+sudo apt install git-all -y
+git --version
+```
+
+### macOS
+```bash
+# via Homebrew (recommended)
+brew install git
+# or use the built-in xcode-select stub
+git --version
+```
+
+### Windows
+1. Download from [git-scm.com](https://git-scm.com/download/win)
+2. Run the installer (keep default settings – **Git Bash** is essential)
+3. Open **Git Bash** and verify:
+```bash
+git --version
+```
+:::
+
+---
+
+## Installing uv – Python Environment Manager (All OS)
+
+`uv` is a fast Python package installer and resolver. Install it before using it in your projects.
+
+::: {.panel-tabset}
+### Linux (Ubuntu/Debian)
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Alternatively, use wget:
+wget -qO- https://astral.sh/uv/install.sh | sh
+```
+
+### macOS
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Or via Homebrew:
+brew install uv
+```
+
+### Windows
+```bash
+# Using PowerShell (run as Administrator):
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+Alternatively, download the latest `uv.exe` from [astral.sh/uv](https://astral.sh/uv) and add it to your PATH.
+:::
+
+> After installation, verify with `uv --version`. The `uv` command should be available in your terminal.
+
+---
+
+## Installing Project Generators
+
+### Python – CCDS 
+
+CCDS is a cross‑project utility, so the **official recommendation** is to install it with `pipx`.
+
+```bash
+# 1. Install pipx (if not already installed)
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+
+# 2. Install CCDS via pipx (recommended)
+pipx install cookiecutter-data-science
+```
+
+> **Note:** CCDS v2 requires Python 3.9+. The `ccds` command will now be available globally.
+
+### R – Cookiecutter (Standard)
+
+Cookiecutter itself is a Python package. You can install it with `pip` (it does not need to be isolated like CCDS).
+
+```bash
+pip install cookiecutter
+```
+
+Alternatively, if you prefer `pipx`:
+```bash
+pipx install cookiecutter
+```
+
+> **Note:** The AP R template (`associatedpress/cookiecutter-r-project`) is a standard Cookiecutter template and works with either installation method.
+
+---
+
+## First-Time Git Configuration
+
+Set your **identity** – this is attached to every commit:
+
+```bash
+git config --global user.name "Your Full Name"
+git config --global user.email "your.email@ephi.gov.et"
+git config --global core.editor "nano -w"   # or your favourite editor
+git config --global init.defaultBranch main
+```
+
+Check settings:
+```bash
+git config --list --global
+```
+
+> **Important:** Use the same email as your GitHub account.
+
+---
+
+## Local Git Basics – The Three Areas
+
+- **Working Directory** – the files you see and edit.
+- **Staging Area (Index)** – a temporary holding zone for changes you plan to commit.
+- **Repository (`.git/`)** – the hidden folder that stores all commits and history.
+
+**Workflow:**
+1. Modify files in the Working Directory.
+2. Stage them with `git add`.
+3. Commit the staged snapshot with `git commit`.
+
+---
+
+## The Three File States
+
+1. **Modified** – changed but not yet staged.
+2. **Staged** – marked to be included in the next commit.
+3. **Committed** – safely stored in the repository.
+
+Use `git status` to see which state each file is in.
+
+---
+
+## Creating a Project with CCDS (Python) or Cookiecutter (R)
+
+**CCDS** generates a complete project structure from a template. We will use the standard **Cookiecutter Data Science** template for Python (via the `ccds` command) and the **Associated Press R template** for R. The interactive prompts let you customise your project name, description, and dependencies.
+
+Below are the steps for each challenge. **Choose your challenge tab**, then select **Python** or **R** and follow the terminal interaction. The answers shown are tailored to that challenge – adapt as needed.
+
+::: {.panel-tabset}
+### Challenge 1 – Zero‑dose Burden
+
+::: {.panel-tabset}
+#### Python Project
+```bash
+# Run the template (no need to create a directory first – CCDS does it for you)
+ccds
+```
+
+**Terminal interaction** (answer each prompt):
+```
+You've downloaded /Users/username/.cookiecutters/cookiecutter-data-science before.
+Is it okay to delete and re-download it? [y/n] (y): y
+project_name (project_name): zero-dose-burden
+repo_name (zero-dose-burden): zero-dose-burden
+module_name (zero_dose_burden): zero_dose_burden
+author_name (Your name (or your organization/company/team)): NDMC-Alpha
+description (A short description of the project.): Estimate district-level zero-dose burden by integrating household surveys and routine immunisation data.
+python_version_number (3.10): 3.10
+Select dataset_storage:
+1 - none
+2 - azure
+3 - s3
+4 - gcs
+Choose from [1/2/3/4] (1): 1
+Select environment_manager:
+1 - virtualenv
+2 - conda
+3 - pipenv
+4 - none
+Choose from [1/2/3/4] (1): 1
+Select dependency_file:
+1 - requirements.txt
+2 - environment.yml
+3 - Pipfile
+Choose from [1/2/3] (1): 1
+Select pydata_packages:
+1 - none
+2 - basic
+Choose from [1/2] (1): 2
+Select open_source_license:
+1 - No license file
+2 - MIT
+3 - BSD-3-Clause
+Choose from [1/2/3] (1): 2
+Select docs:
+1 - mkdocs
+2 - none
+Choose from [1/2] (1): 1
+Select include_code_scaffold:
+1 - Yes
+2 - No
+Choose from [1/2] (1): 1
+```
+
+After generation, initialise Git and commit:
+```bash
+cd zero-dose-burden
+git init
+git add .
+git commit -m "Initial commit from CCDS template"
+```
+
+#### R Project
+```bash
+# Use the Associated Press R template
+cookiecutter https://github.com/associatedpress/cookiecutter-r-project
+```
+
+**Terminal interaction**:
+```
+You've downloaded /Users/username/.cookiecutters/cookiecutter-r-project before.
+Is it okay to delete and re-download it? [y/n] (y): y
+  [1/5] full_name (Firstname Lastname): NDMC Alpha
+  [2/5] email (): teamalpha@hackathon.org
+  [3/5] project_name (New Project): zero-dose-burden
+  [4/5] project_slug (zero-dose-burden): 
+  [5/5] project_short_description (TK: short project description): Estimate district-level zero-dose burden by integrating household surveys and routine immunisation data.
+```
+
+After generation, initialise Git and commit:
+```bash
+cd zero-dose-burden
+git init
+git add .
+git commit -m "Initial commit from AP R template"
+```
+:::
+
+### Challenge 2 – Antimalarial Forecasting
+
+::: {.panel-tabset}
+#### Python
+```bash
+ccds
+```
+**Terminal interaction**:
+```
+project_name: antimalarial-forecast
+repo_name: antimalarial-forecast
+module_name: antimalarial_forecast
+author_name: NDMC-Beta
+description: Forecast district-level antimalarial medicine requirements and optimise allocation under supply constraints.
+python_version_number: 3.10
+dataset_storage: 1
+environment_manager: 1
+dependency_file: 1
+pydata_packages: 2
+open_source_license: 2
+docs: 1
+include_code_scaffold: 1
+```
+After generation:
+```bash
+cd antimalarial-forecast
+git init && git add . && git commit -m "Initial commit"
+```
+
+#### R
+```bash
+cookiecutter https://github.com/associatedpress/cookiecutter-r-project
+```
+**Terminal interaction**:
+```
+full_name: NDMC Beta
+email: teambeta@hackathon.org
+project_name: antimalarial-forecast
+project_slug: (press Enter)
+project_short_description: Forecast district-level antimalarial medicine requirements and optimise allocation under supply constraints.
+```
+Then `git init` and commit.
+:::
+
+### Challenge 3 – Measles Alert Rules
+
+::: {.panel-tabset}
+#### Python
+```bash
+ccds
+```
+**Terminal interaction**:
+```
+project_name: measles-alert-rules
+repo_name: measles-alert-rules
+module_name: measles_alert_rules
+author_name: NDMC-Gamma
+description: Evaluate and optimise district-level measles alert rules for earlier and more reliable outbreak detection.
+python_version_number: 3.10
+dataset_storage: 1
+environment_manager: 1
+dependency_file: 1
+pydata_packages: 2
+open_source_license: 2
+docs: 1
+include_code_scaffold: 1
+```
+After generation:
+```bash
+cd measles-alert-rules
+git init && git add . && git commit -m "Initial commit"
+```
+
+#### R
+```bash
+cookiecutter https://github.com/associatedpress/cookiecutter-r-project
+```
+**Terminal interaction**:
+```
+full_name: NDMC Gamma
+email: teamgamma@hackathon.org
+project_name: measles-alert-rules
+project_slug: (press Enter)
+project_short_description: Evaluate and optimise district-level measles alert rules for earlier and more reliable outbreak detection.
+```
+Then `git init` and commit.
+:::
+
+### Challenge 4 – Measles Transmission Modelling
+
+::: {.panel-tabset}
+#### Python
+```bash
+ccds
+```
+**Terminal interaction**:
+```
+project_name: measles-transmission
+repo_name: measles-transmission
+module_name: measles_transmission
+author_name: NDMC-Delta
+description: Model measles transmission and compare control and elimination strategies.
+python_version_number: 3.10
+dataset_storage: 1
+environment_manager: 1
+dependency_file: 1
+pydata_packages: 2
+open_source_license: 2
+docs: 1
+include_code_scaffold: 1
+```
+After generation:
+```bash
+cd measles-transmission
+git init && git add . && git commit -m "Initial commit"
+```
+
+#### R
+```bash
+cookiecutter https://github.com/associatedpress/cookiecutter-r-project
+```
+**Terminal interaction**:
+```
+full_name: NDMC Delta
+email: teamdelta@hackathon.org
+project_name: measles-transmission
+project_slug: (press Enter)
+project_short_description: Model measles transmission and compare control and elimination strategies.
+```
+Then `git init` and commit.
+:::
+:::
+
+> [Done] You have a complete project structure, tailored to your challenge, with a Git repository initialised and the first commit made.
+
+---
+
+## Viewing Changes – git diff
+
+- `git diff` – shows unstaged changes.
+- `git diff --staged` – shows staged changes.
+
+```bash
+# Modify your data file (e.g., survey data)
+echo "Zone1, 2025, 0.12" >> data/raw/survey.csv
+git diff
+git add data/raw/survey.csv
+git diff --staged
+```
+
+> Use `diff` to review changes before committing – good practice.
+
+---
+
+## Undoing Changes – git restore, git reset, git stash
+
+- **Discard unstaged changes:** `git restore <file>`
+- **Unstage a file:** `git restore --staged <file>`
+- **Undo last commit (keep changes):** `git reset --soft HEAD~1`
+- **Undo last commit (discard changes):** `git reset --hard HEAD~1`
+- **Save temporary work:** `git stash`, later `git stash pop`
+
+```bash
+# Stash current work (e.g., an incomplete analysis script)
+echo "WIP: incidence calculation" > src/incidence_calc.R
+git stash push -m "WIP: incidence calculation"
+git stash list
+git stash pop
+```
+
+---
+
+## Exercise: Practice Undoing and Stashing
+
+**Goal:** Safely discard changes and stash work in progress.
+
+```bash
+# Create and commit a data loading function
+echo "load_data <- function() {}" > src/load_data.R
+git add src/load_data.R
+git commit -m "Add data loading function"
+
+# Make accidental change
+echo "break" >> src/load_data.R
+git restore src/load_data.R   # restore
+
+# Stash a new exploratory notebook
+echo "EDA for zero-dose" > notebooks/explore.Rmd
+git stash
+git stash list
+git stash pop
+```
+
+> [Done] You can now safely undo changes and stash work.
+
+---
+
+## Branching – Isolate Your Work
+
+- A **branch** is a separate line of development.
+- Default branch is `main`.
+- Use branches to experiment safely.
+
+```bash
+# Create and switch to a new feature branch (e.g., for model development)
+git checkout -b feature/add_model
+# Work, commit, push...
+```
+
+---
+
+## Exercise: Branching and Merging
+
+**Goal:** Create a feature branch, make changes, and merge back to `main`.
+
+```bash
+# Ensure main is up‑to‑date
+git checkout main
+git pull origin main
+
+# Create a new branch for data cleaning
+git checkout -b feature/clean_data
+
+# Add a cleaning script
+echo "clean_survey <- function(df) { ... }" > src/clean.R
+git add src/clean.R
+git commit -m "Add data cleaning function"
+
+# Merge back to main
+git checkout main
+git merge feature/clean_data
+```
+
+> [Done] You have successfully used branches.
+
+---
+
+## Remote Repositories – clone vs fork
+
+- **Clone** – creates a local copy of a remote repository.
+  - `git clone https://github.com/user/repo.git`
+- **Fork** – GitHub‑only: copy a repo to your own account.
+  - Use to contribute without write access.
+
+---
+
+## Exercise: Clone and Push
+
+**Goal:** Clone a repository, make a change, and push.
+
+```bash
+# Clone the team repository
+git clone https://github.com/ndmc-davt/zero-dose-project.git
+cd zero-dose-project
+
+# Make a change (e.g., add a data source note)
+echo " - Data source: DHS 2020" >> README.md
+git add README.md
+git commit -m "Add data source note"
+git push origin main
+```
+
+> [Done] You have pushed a change to a remote repository.
+
+---
+
+## Collaboration – Pull and Push
+
+- `git pull` = fetch + merge
+- `git push` uploads local commits
+
+> Always `pull` before `push` to avoid conflicts.
+
+---
+
+## Exercise: Simulate Collaboration
+
+**Pair up:** One person creates a repo, the other forks/clones.
+
+1. **Owner** creates repo on GitHub, adds Collaborator.
+2. **Collaborator** clones, makes change, pushes.
+3. **Owner** pulls and merges.
+4. Switch roles.
+
+> This is the core of team Git workflow.
+
+---
+
+## Handling Merge Conflicts
+
+- Conflict: same file, same lines, different changes.
+- Git marks conflict with `<<<<<<<`, `=======`, `>>>>>>>`.
+
+```text
+<<<<<<< HEAD
+method = "mean"
+=======
+method = "median"
+>>>>>>> branch-name
+```
+
+Resolve: edit file, remove markers, then:
+```bash
+git add <file>
+git commit -m "Resolved conflict"
+```
+
+---
+
+## Exercise: Create and Resolve a Conflict
+
+**Setup:** Two people (or two branches) modify the same line in a script.
+
+- **Branch A:** changes line 1 to `method = "mean"`.
+- **Branch B:** changes line 1 to `method = "median"`.
+- Merge A into main, then try to merge B – conflict occurs.
+- Resolve by picking one method or combining.
+
+> [Done] You have resolved a real conflict.
+
+---
+
+## Advanced: git rebase (vs merge)
+
+- `rebase` rewrites commit history to appear linear.
+- Use **only on local branches** before pushing.
+
+```bash
+git checkout feature
+git rebase main    # move feature commits on top of main
+```
+
+- Then fast-forward merge: `git checkout main; git merge feature`
+
+> **Caution:** Do not rebase shared branches – use merge for public history.
+
+---
+
+## Tags – Marking Releases
+
+- Lightweight vs annotated tags.
+- `git tag v1.0` (lightweight)
+- `git tag -a v1.0 -m "Release version 1.0"`
+- Push tags: `git push origin --tags`
+
+```bash
+# Create annotated tag after completing a milestone (e.g., data ingestion done)
+git tag -a v0.1 -m "Data ingestion pipeline complete"
+git push origin v0.1
+```
+
+> Tags are great for marking milestones (e.g., submission deadline).
+
+---
+
+## .gitignore – Ignoring Unwanted Files
+
+Prevent committing temporary, large, or sensitive files.
+
+```gitignore
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# R
+.Rproj.user
+.Rhistory
+.RData
+renv/library/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data
+*.csv
+*.nc
+*.h5
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+```
+
+> Add `.gitignore` early and commit it.
+
+---
+
+## Large File Management – Git LFS
+
+**The Problem:** Git stores every version of every file. Large files (datasets, models, images) bloat the repository, make clones slow, and can exceed GitHub's 100 MB file limit.
+
+**The Solution:** Git Large File Storage (LFS) replaces large files with small text pointers, storing the actual content on a separate server.
+
+**Installing Git LFS:**
+```bash
+# Linux (Ubuntu/Debian)
+sudo apt install git-lfs
+
+# macOS
+brew install git-lfs
+
+# Windows
+# Download from https://git-lfs.com
+```
+
+**Initialise LFS in your repository:**
+```bash
+git lfs install
+```
+
+**Track large file types:**
+```bash
+# Track all CSV, NetCDF, and HDF5 files
+git lfs track "*.csv"
+git lfs track "*.nc"
+git lfs track "*.h5"
+
+# Track model files
+git lfs track "*.pkl"
+git lfs track "*.joblib"
+
+# Track large images
+git lfs track "*.tif"
+git lfs track "*.png"
+```
+
+**Commit the tracking configuration:**
+```bash
+git add .gitattributes
+git commit -m "Track large files with Git LFS"
+```
+
+**Push as usual:**
+```bash
+git push origin main
+```
+
+> **Note:** GitHub has a free LFS quota (1 GB storage, 1 GB bandwidth per month). For larger datasets, consider DVC.
+
+---
+
+## DVC – Data Version Control (Advanced)
+
+- **DVC** is a tool that extends Git to handle large datasets and model files.
+- It stores data on cloud storage (S3, GCS, Azure) or local drives, while Git tracks small metadata files.
+
+**Install DVC:**
+```bash
+pip install dvc
+```
+
+**Initialise DVC:**
+```bash
+dvc init
+```
+
+**Track data:**
+```bash
+dvc add data/raw/dataset.csv
+git add data/raw/dataset.csv.dvc
+git commit -m "Add dataset with DVC"
+```
+
+**Push data to remote storage:**
+```bash
+dvc remote add -d myremote s3://my-bucket/data
+dvc push
+```
+
+> **When to use:** Git LFS for files up to a few GB, DVC for very large datasets (10+ GB) or when you need versioned pipelines.
+
+---
+
+## Exercise: Large File Management
+
+**Goal:** Set up Git LFS and track a large file.
+
+```bash
+# 1. Install Git LFS (if not already)
+git lfs install
+
+# 2. Create a dummy large file (e.g., 200 MB) simulating a climate dataset
+dd if=/dev/zero of=data/raw/raw_climate_data.nc bs=1M count=200
+
+# 3. Track NetCDF files with LFS
+git lfs track "*.nc"
+
+# 4. Stage and commit
+git add .gitattributes data/raw/raw_climate_data.nc
+git commit -m "Add large climate dataset with LFS"
+
+# 5. Push (LFS files will be uploaded separately)
+git push origin main
+```
+
+> [Done] You have successfully added a large file using Git LFS.
+
+---
+
+## GitHub Issues – Tracking Tasks
+
+- Use Issues to track bugs, features, or tasks.
+- Each issue has a number, labels, milestones, and assignees.
+- Link commits with `#issue-number` to automatically close.
+
+```bash
+git commit -m "Fix bug #42"
+git push
+# When merged, issue #42 auto-closes.
+```
+
+> Issues are essential for team coordination.
+
+---
+
+## GitHub Projects – Kanban Board
+
+- Create a Project board (e.g., "Hackathon Tasks").
+- Add columns: To Do, In Progress, Done.
+- Link issues to cards.
+- Visualise progress at a glance.
+
+> Great for managing hackathon workflow.
+
+---
+
+## GitHub Actions – CI/CD
+
+- Automate testing, linting, deployment.
+- Define workflows in `.github/workflows/*.yml`.
+
+Example Python test workflow:
+```yaml
+name: CI
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest
+```
+
+> Set up Actions to ensure code quality automatically.
+
+---
+
+## Exercise: GitHub Issues and Projects
+
+**Goal:** Create an issue and a project board.
+
+1. On your GitHub repo, go to **Issues** → New issue.
+2. Create an issue: "Add data validation function" (or similar for your challenge).
+3. Go to **Projects** → New project (Kanban).
+4. Add the issue to the "To Do" column.
+5. Assign yourself and a milestone (optional).
+
+> This is how you manage tasks collaboratively.
+
+---
+
+## Environment Management – Using uv (Python) and renv (R)
+
+After installing `uv` (earlier), here is how to use it in your project.
+
+::: {.panel-tabset}
+### Python (uv)
+**Initialise a project:**
+```bash
+cd your_project
+uv init
+uv venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+```
+
+**Add dependencies:**
+```bash
+uv add pandas numpy scikit-learn
+uv lock                # creates uv.lock – commit this!
+```
+
+**When a teammate clones:**
+```bash
+uv sync                # installs exact versions from uv.lock
+```
+
+> Commit `pyproject.toml` and `uv.lock` to Git.
+
+### R (renv)
+**Install `renv` (once per machine):**
+```r
+install.packages("renv")
+```
+
+**Initialise a project:**
+```r
+renv::init()   # creates renv.lock and renv/activate.R
+```
+
+**Add a package:**
+```r
+renv::install("dplyr")
+renv::snapshot()   # updates renv.lock
+```
+
+**When a teammate clones:**
+```r
+renv::restore()    # installs packages from renv.lock
+```
+
+> Commit `renv.lock` and `renv/.gitignore` to Git.
+:::
+
+---
+
+## Project Structure – CCDS (Cross‑Language)
+
+A clean, reproducible project structure works for both Python and R. The AP R template generates a slightly different structure (with `analysis/`, `etl/`, `publish/`, `viz/`), but it is equally valid. If you prefer the standard CCDS layout, use the manual alternative.
+
+```text
+project-name/
+├── checkpoints/          # Model checkpoints (if applicable)
+├── data/
+│   ├── raw/              # Original, immutable data
+│   └── processed/        # Cleaned, model‑ready data
+├── docs/                 # Project documentation
+├── notebooks/            # Jupyter (Python) or R Markdown/Quarto
+├── src/                  # Reusable functions (Python) or R/
+├── scripts/              # Analysis pipelines
+├── tests/                # Unit tests
+├── models/               # Saved model artifacts
+├── reports/              # Generated reports, figures
+├── pyproject.toml        # Python (uv)
+├── requirements.txt      # Python fallback
+├── renv.lock             # R (renv)
+├── README.md
+└── .gitignore
+```
+
+
+## Branching Architecture
+### Coordinating Parallel Workflows with Main, Dev, and Subbranches
+
+Never develop directly on production timelines. We isolate our codebase into an ecosystem of stable execution tracks and rapid-iteration subbranches:
+
+* **`main`**: The pristine production baseline. Contains fully verified, peer-reviewed, deployment-ready code releases.
+* **`dev`**: The ongoing compilation line. Merges stable internal features before prepping a public version bump.
+* **`feat/*`**: Experimental subbranches. Isolated environments spun out from `dev` to prototype single components (e.g., analytical modules) without breaking the team baseline.
+
+
+
+## Integrating via Git Merge
+### Context Preservation and the Non-Destructive Timeline
+
+When a development feature is complete and peer-reviewed, `git merge` brings those changes back into the parent track. 
+
+* **Mechanics**: Git creates a specialized, dedicated **Merge Commit** node that binds the history of both paths together.
+* **Value**: It provides an absolute audit log. The repository graph records exactly *when* an experimental subbranch was built and *when* it was joined back into `dev`.
+* **Command Loop**:
+    ```bash
+    git checkout dev
+    git merge feat-data-cleaner --no-ff -m "merge: incorporate completed data pipeline"
+    ```
+
+
+## Streamlining via Git Rebase
+### Rewriting Commit Topography for Pristine Linear Histories
+
+As teams scale, multiple intersecting merge loops can clutter the project timeline. `git rebase` solves this by picking up your local commits and re-applying them directly on top of the newest parent branch updates.
+
+* **Mechanics**: It temporarily side-lines your feature updates, synchronizes your subbranch baseline with the current state of `dev`, and writes your modifications linearly on top.
+* **Value**: Eliminates messy intersection lines. The final path appears as a completely straightforward timeline.
+* **Command Loop**:
+    ```bash
+    git checkout feat-spatial-model
+    git rebase dev
+    ```
+
+
+---
+
+## Team Challenges – Final Project (Four Groups)
+
+Divide into four teams. Each team tackles one challenge using the `main`/`dev` branch model.
+
+| Family | Challenge |
+|--------|-----------|
+| **Alpha** | Zero‑dose Burden Mapping |
+| **Beta**  | Antimalarial Medicine Forecasting |
+| **Gamma** | Measles Alert Rule Optimisation |
+| **Delta** | Measles Transmission Modelling |
+
+**Instructions:**
+1. One member creates a GitHub repo and adds all team members as collaborators.
+2. Everyone clones.
+3. Create a `dev` branch from `main`: `git checkout -b dev && git push -u origin dev`.
+4. Each member creates a feature branch from `dev` (e.g., `feature/data-load`).
+5. Work in parallel: write code, commit, push.
+6. Merge features into `dev` (resolve conflicts).
+7. When ready, merge `dev` into `main`.
+8. Final repo must include:
+   - Project structure (CCDS or AP template).
+   - Environment lock file.
+   - `.gitignore`.
+   - `README.md`.
+   - Issues/Project board.
+   - Large files managed with LFS/DVC.
+
+---
+
+## Submission Success Checklist
+
+Before final presentation, verify:
+
+- [ ] Git repository initialised and pushed to GitHub.
+- [ ] Environment lock file (`uv.lock` or `renv.lock`) committed.
+- [ ] `.gitignore` excludes `data/`, `.venv/`, `renv/library/`, cache.
+- [ ] Notebook outputs cleared (or not committed).
+- [ ] Project structure is clean and organised.
+- [ ] `README.md` explains the project and reproduction steps.
+- [ ] Both `main` and `dev` branches exist and are pushed.
+- [ ] At least one feature branch has been merged into `dev` (and then into `main`).
+- [ ] Issues and project board used to track progress.
+- [ ] Large files (if any) are managed with Git LFS or DVC.
+
+---
+
+## Git Command Cheat Sheet (1/2) – Local & Basic Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `git init` | Initialise a new repository | `git init` |
+| `git status` | Show working directory and staging status | `git status` |
+| `git add <file>` | Stage changes for commit | `git add README.md` |
+| `git add .` | Stage all changes in current directory | `git add .` |
+| `git commit -m "msg"` | Commit staged changes | `git commit -m "Add data"` |
+| `git log` | Show commit history | `git log --oneline --graph` |
+| `git diff` | Show unstaged changes | `git diff` |
+| `git diff --staged` | Show staged changes | `git diff --staged` |
+| `git restore <file>` | Discard unstaged changes | `git restore src/script.py` |
+| `git restore --staged <file>` | Unstage a file (keep changes) | `git restore --staged data.csv` |
+| `git reset --soft HEAD~1` | Undo last commit, keep changes staged | `git reset --soft HEAD~1` |
+| `git reset HEAD~1` | Undo last commit, unstage changes | `git reset HEAD~1` |
+| `git reset --hard HEAD~1` | Undo last commit, discard changes | `git reset --hard HEAD~1` |
+| `git stash` | Temporarily save uncommitted changes | `git stash push -m "WIP"` |
+| `git stash list` | List stashed changes | `git stash list` |
+| `git stash pop` | Apply and remove latest stash | `git stash pop` |
+
+---
+
+## Git Command Cheat Sheet (2/2) – Remote, Branching, & Advanced
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `git clone <url>` | Copy a remote repository locally | `git clone https://github.com/user/repo.git` |
+| `git branch` | List branches | `git branch` |
+| `git branch <name>` | Create a new branch | `git branch feature/clean` |
+| `git checkout <branch>` | Switch to a branch | `git checkout main` |
+| `git checkout -b <branch>` | Create and switch to a new branch | `git checkout -b feature/model` |
+| `git merge <branch>` | Merge a branch into current | `git merge feature/clean` |
+| `git rebase <branch>` | Rebase current branch onto another | `git rebase main` |
+| `git pull` | Fetch and merge remote changes | `git pull origin main` |
+| `git push` | Upload local commits to remote | `git push origin main` |
+| `git push -u origin <branch>` | Push and set upstream | `git push -u origin feature/model` |
+| `git remote -v` | List remote repositories | `git remote -v` |
+| `git remote add <name> <url>` | Add a new remote | `git remote add origin git@github.com:user/repo.git` |
+| `git fetch` | Download remote changes without merging | `git fetch origin` |
+| `git tag` | List tags | `git tag` |
+| `git tag -a <name> -m "msg"` | Create an annotated tag | `git tag -a v1.0 -m "Release v1.0"` |
+| `git push origin --tags` | Push tags to remote | `git push origin --tags` |
+
+> Use `git help <command>` or `git <command> --help` for more details.
+
+---
+
+## Git Tips and Tricks
+
+- **Commit early, commit often** – small, frequent commits are easier to review and revert if needed.
+- **Write meaningful commit messages** – use imperative mood, keep under 50 characters, explain *why* not *how*.
+- **Run `git status` before and after every command** – it prevents surprises and keeps you oriented.
+- **Always `git pull` before you `git push`** – this avoids unnecessary merge conflicts.
+- **Use branches for every new feature or experiment** – keep `main` stable; branch names like `feature/description` help.
+- **Stash unfinished work** – use `git stash push -m "WIP"` to save work in progress, then `git stash pop` to restore.
+- **Review changes with `git diff` before staging** – catch mistakes before they become commits.
+- **Use `git log --oneline --graph` for a clear history view** – visualise branches and merges at a glance.
+- **Add `.gitignore` at the start** – prevent accidental commits of data files, credentials, or cache folders.
+- **Use Git LFS or DVC for large files** – avoid repository bloat and stay within GitHub’s size limits.
+- **If in doubt, `git help` or `git <command> --help`** – the built‑in documentation is excellent.
+
+---
+
+## Using Git from RStudio and VS Code
+
+### RStudio
+- Create a new project from an existing directory or clone a repository.
+- Use the **Git** pane to stage, commit, push, and pull.
+- View history and diff changes with a GUI.
+
+### VS Code
+- The built-in Source Control panel shows changed files.
+- Stage changes, commit, push/pull with one click.
+- Extensions like **GitLens** add powerful history visualisation.
+
+> Both tools work seamlessly with the same Git commands.
+
+---
+
+## Summary – The R & Python Hackathon Toolkit
+
+- **Git** – tracks code, enables branching, works offline.
+- **GitHub** – collaboration platform with Issues, Projects, Actions.
+- **Git LFS / DVC** – manage large datasets and models.
+- **Environment managers** – `uv` (Python) and `renv` (R) for reproducibility.
+- **Project templates** – CCDS (Python) and Associated Press R template (R).
+- **Branch strategy** – `main` for production, `dev` for integration, `feature/*` for new work.
+
+> **Remember:** Always `pull` before you `push`, write clear commit messages, and use issues to track progress.
+
+---
+
+
+
+
+
+<div style="display:flex; justify-content:center; align-items:center; height:100vh; font-size:1.5em; color:red; text-align:center;">
+  <h1>Happy Hacking!</h1>
+  <h1>Thank You!</h1>
+</div>
+
+
+# References {.allowframebreaks frameoptions="shrink,squeeze"}
+
+\tiny
+
+::: {#refs style="text-align: left;"}
+- Pro Git Book: https://git-scm.com/book
+- GitHub Skills: https://skills.github.com
+- uv Documentation: https://docs.astral.sh/uv/
+- renv Documentation: https://rstudio.github.io/renv/
+- Git LFS: https://git-lfs.com
+- DVC: https://dvc.org
+- Cookiecutter: https://cookiecutter.readthedocs.io/
+- CCDS Documentation: https://cookiecutter-data-science.drivendata.org/
+- Associated Press R Template: https://github.com/associatedpress/cookiecutter-r-project
+:::

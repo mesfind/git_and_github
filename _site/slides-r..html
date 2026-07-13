@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
+
+  <title>slides-r.</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-bbe64c764dd7e217dc00eb5564a2dad8.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section class="slide level2">
+
+<div style="text-align: center;">
+<h1 style="font-size: 2.5em; margin: 1rem 0; color: #2c3e50;">
+Reproducibility and Distributed Version Control<br>
+</h1>
+<div style="margin-top: 3rem;">
+<p style="font-size: 1.4em; color: #2c2c2c; margin: 0; font-weight: 700; letter-spacing: 2px;">
+<br> <br> Mesfin D. (PhD) <br> <br>
+</p>
+<p style="font-size: 1.1em; color: #666; margin-top: 0.6rem;">
+<br> <br> July, 2026 <br> <br> Hackathon Theme: Bridging Modeling &amp; Policy to Solve Public Health Challenges <br> <br>
+</p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:100%;">
+<p><img data-src="fig/ephi_logo.png" style="width:10.0%"></p>
+</div></div>
+</section>
+<section id="what-is-version-control" class="slide level2">
+<h2>What is Version Control?</h2>
+<ul>
+<li>A <strong>version control system (VCS)</strong> tracks changes to files over time.</li>
+<li>It allows you to:
+<ul>
+<li>Recover older versions (like a time machine).</li>
+<li>See <em>who</em> changed <em>what</em> and <em>why</em> (commit messages).</li>
+<li>Work on multiple features simultaneously (branches).</li>
+<li>Merge changes from different people.</li>
+</ul></li>
+<li>Without VCS, we rely on manual backups – chaotic.</li>
+</ul>
+<blockquote>
+<p>Git is the most popular modern VCS – we will use it throughout.</p>
+</blockquote>
+</section>
+<section id="git-vs-github-the-difference" class="slide level2">
+<h2>Git vs GitHub – The Difference</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Git</strong></th>
+<th><strong>GitHub</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A <strong>command-line tool</strong> that runs locally on your computer</td>
+<td>A <strong>cloud platform</strong> that hosts Git repositories</td>
+</tr>
+<tr class="even">
+<td>Manages commits, branches, and history</td>
+<td>Provides a web UI, Issues, Projects, and Actions</td>
+</tr>
+<tr class="odd">
+<td>Works entirely offline</td>
+<td>Requires internet for collaboration</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Analogy:</strong> Git is the engine; GitHub is the garage where you store and share your car.</p>
+</blockquote>
+</section>
+<section id="distributed-version-control-systems-dvcs" class="slide level2">
+<h2>Distributed Version Control Systems (DVCS)</h2>
+<ul>
+<li><strong>Centralised</strong> (e.g., SVN): a single server holds all history – single point of failure.</li>
+<li><strong>Distributed</strong> (Git): every developer has a <strong>full copy</strong> of the repository.
+<ul>
+<li>Work offline, commit locally.</li>
+<li>Sync with any other copy when online.</li>
+</ul></li>
+</ul>
+<blockquote>
+<p><strong>Key takeaway:</strong> Git is distributed – every laptop is a full backup.</p>
+</blockquote>
+</section>
+<section id="installing-git-all-operating-systems" class="slide level2">
+<h2>Installing Git (All Operating Systems)</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Linux (Ubuntu/Debian)</a></li><li><a href="#tabset-1-2">macOS</a></li><li><a href="#tabset-1-3">Windows</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="fu">sudo</span> apt update</span>
+<span id="cb1-2"><a></a><span class="fu">sudo</span> apt install git-all <span class="at">-y</span></span>
+<span id="cb1-3"><a></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="co"># via Homebrew (recommended)</span></span>
+<span id="cb2-2"><a></a><span class="ex">brew</span> install git</span>
+<span id="cb2-3"><a></a><span class="co"># or use the built-in xcode-select stub</span></span>
+<span id="cb2-4"><a></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-3">
+<ol type="1">
+<li>Download from <a href="https://git-scm.com/download/win">git-scm.com</a></li>
+<li>Run the installer (keep default settings – <strong>Git Bash</strong> is essential)</li>
+<li>Open <strong>Git Bash</strong> and verify:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="installing-uv-python-environment-manager-all-os" class="slide level2">
+<h2>Installing uv – Python Environment Manager (All OS)</h2>
+<p><code>uv</code> is a fast Python package installer and resolver. Install it before using it in your projects.</p>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Linux (Ubuntu/Debian)</a></li><li><a href="#tabset-2-2">macOS</a></li><li><a href="#tabset-2-3">Windows</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
+<span id="cb4-2"><a></a><span class="co"># Alternatively, use wget:</span></span>
+<span id="cb4-3"><a></a><span class="fu">wget</span> <span class="at">-qO-</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-2-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
+<span id="cb5-2"><a></a><span class="co"># Or via Homebrew:</span></span>
+<span id="cb5-3"><a></a><span class="ex">brew</span> install uv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-2-3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a></a><span class="co"># Using PowerShell (run as Administrator):</span></span>
+<span id="cb6-2"><a></a><span class="ex">powershell</span> <span class="at">-c</span> <span class="st">"irm https://astral.sh/uv/install.ps1 | iex"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Alternatively, download the latest <code>uv.exe</code> from <a href="https://astral.sh/uv">astral.sh/uv</a> and add it to your PATH.</p>
+</div>
+</div>
+</div>
+<blockquote>
+<p>After installation, verify with <code>uv --version</code>. The <code>uv</code> command should be available in your terminal.</p>
+</blockquote>
+</section>
+<section id="installing-project-generators" class="slide level2">
+<h2>Installing Project Generators</h2>
+<h3 id="python-ccds-cookiecutter-data-science">Python – CCDS (Cookiecutter Data Science)</h3>
+<p>CCDS is a cross‑project utility, so the <strong>official recommendation</strong> is to install it with <code>pipx</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a></a><span class="co"># 1. Install pipx (if not already installed)</span></span>
+<span id="cb7-2"><a></a><span class="ex">python3</span> <span class="at">-m</span> pip install <span class="at">--user</span> pipx</span>
+<span id="cb7-3"><a></a><span class="ex">python3</span> <span class="at">-m</span> pipx ensurepath</span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a><span class="co"># 2. Install CCDS via pipx (recommended)</span></span>
+<span id="cb7-6"><a></a><span class="ex">pipx</span> install cookiecutter-data-science</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p><strong>Note:</strong> CCDS v2 requires Python 3.9+. The <code>ccds</code> command will now be available globally.</p>
+</blockquote>
+<h3 id="r-cookiecutter-standard">R – Cookiecutter (Standard)</h3>
+<p>Cookiecutter itself is a Python package. You can install it with <code>pip</code> (it does not need to be isolated like CCDS).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a></a><span class="ex">pip</span> install cookiecutter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Alternatively, if you prefer <code>pipx</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a></a><span class="ex">pipx</span> install cookiecutter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p><strong>Note:</strong> The AP R template (<code>associatedpress/cookiecutter-r-project</code>) is a standard Cookiecutter template and works with either installation method.</p>
+</blockquote>
+</section>
+<section id="first-time-git-configuration" class="slide level2">
+<h2>First-Time Git Configuration</h2>
+<p>Set your <strong>identity</strong> – this is attached to every commit:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Full Name"</span></span>
+<span id="cb10-2"><a></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@ephi.gov.et"</span></span>
+<span id="cb10-3"><a></a><span class="fu">git</span> config <span class="at">--global</span> core.editor <span class="st">"nano -w"</span>   <span class="co"># or your favourite editor</span></span>
+<span id="cb10-4"><a></a><span class="fu">git</span> config <span class="at">--global</span> init.defaultBranch main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check settings:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a></a><span class="fu">git</span> config <span class="at">--list</span> <span class="at">--global</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p><strong>Important:</strong> Use the same email as your GitHub account.</p>
+</blockquote>
+</section>
+<section id="local-git-basics-the-three-areas" class="slide level2">
+<h2>Local Git Basics – The Three Areas</h2>
+<ul>
+<li><strong>Working Directory</strong> – the files you see and edit.</li>
+<li><strong>Staging Area (Index)</strong> – a temporary holding zone for changes you plan to commit.</li>
+<li><strong>Repository (<code>.git/</code>)</strong> – the hidden folder that stores all commits and history.</li>
+</ul>
+<p><strong>Workflow:</strong> 1. Modify files in the Working Directory. 2. Stage them with <code>git add</code>. 3. Commit the staged snapshot with <code>git commit</code>.</p>
+</section>
+<section id="the-three-file-states" class="slide level2">
+<h2>The Three File States</h2>
+<ol type="1">
+<li><strong>Modified</strong> – changed but not yet staged.</li>
+<li><strong>Staged</strong> – marked to be included in the next commit.</li>
+<li><strong>Committed</strong> – safely stored in the repository.</li>
+</ol>
+<p>Use <code>git status</code> to see which state each file is in.</p>
+</section>
+<section id="creating-a-project-with-ccds-python-or-cookiecutter-r" class="slide level2">
+<h2>Creating a Project with CCDS (Python) or Cookiecutter (R)</h2>
+<p><strong>CCDS</strong> generates a complete project structure from a template. We will use the standard <strong>Cookiecutter Data Science</strong> template for Python (via the <code>ccds</code> command) and the <strong>Associated Press R template</strong> for R. The interactive prompts let you customise your project name, description, and dependencies.</p>
+<p>Below are the steps for each challenge. <strong>Choose your challenge tab</strong>, then select <strong>Python</strong> or <strong>R</strong> and follow the terminal interaction. The answers shown are tailored to that challenge – adapt as needed.</p>
+<div class="panel-tabset">
+<ul id="tabset-7" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-7-1">Challenge 1 – Zero‑dose Burden</a></li><li><a href="#tabset-7-2">Challenge 2 – Antimalarial Forecasting</a></li><li><a href="#tabset-7-3">Challenge 3 – Measles Alert Rules</a></li><li><a href="#tabset-7-4">Challenge 4 – Measles Transmission Modelling</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1">
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Python Project</a></li><li><a href="#tabset-3-2">R Project</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a></a><span class="co"># Run the template (no need to create a directory first – CCDS does it for you)</span></span>
+<span id="cb12-2"><a></a><span class="ex">ccds</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Terminal interaction</strong> (answer each prompt):</p>
+<pre><code>You've downloaded /Users/username/.cookiecutters/cookiecutter-data-science before.
+Is it okay to delete and re-download it? [y/n] (y): y
+project_name (project_name): zero-dose-burden
+repo_name (zero-dose-burden): zero-dose-burden
+module_name (zero_dose_burden): zero_dose_burden
+author_name (Your name (or your organization/company/team)): NDMC-Alpha
+description (A short description of the project.): Estimate district-level zero-dose burden by integrating household surveys and routine immunisation data.
+python_version_number (3.10): 3.10
+Select dataset_storage:
+1 - none
+2 - azure
+3 - s3
+4 - gcs
+Choose from [1/2/3/4] (1): 1
+Select environment_manager:
+1 - virtualenv
+2 - conda
+3 - pipenv
+4 - none
+Choose from [1/2/3/4] (1): 1
+Select dependency_file:
+1 - requirements.txt
+2 - environment.yml
+3 - Pipfile
+Choose from [1/2/3] (1): 1
+Select pydata_packages:
+1 - none
+2 - basic
+Choose from [1/2] (1): 2
+Select open_source_license:
+1 - No license file
+2 - MIT
+3 - BSD-3-Clause
+Choose from [1/2/3] (1): 2
+Select docs:
+1 - mkdocs
+2 - none
+Choose from [1/2] (1): 1
+Select include_code_scaffold:
+1 - Yes
+2 - No
+Choose from [1/2] (1): 1</code></pre>
+<p>After generation, initialise Git and commit:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a></a><span class="bu">cd</span> zero-dose-burden</span>
+<span id="cb14-2"><a></a><span class="fu">git</span> init</span>
+<span id="cb14-3"><a></a><span class="fu">git</span> add .</span>
+<span id="cb14-4"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Initial commit from CCDS template"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-3-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a></a><span class="co"># Use the Associated Press R template</span></span>
+<span id="cb15-2"><a></a><span class="ex">cookiecutter</span> https://github.com/associatedpress/cookiecutter-r-project</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Terminal interaction</strong>:</p>
+<pre><code>You've downloaded /Users/username/.cookiecutters/cookiecutter-r-project before.
+Is it okay to delete and re-download it? [y/n] (y): y
+  [1/5] full_name (Firstname Lastname): NDMC Alpha
+  [2/5] email (): teamalpha@hackathon.org
+  [3/5] project_name (New Project): zero-dose-burden
+  [4/5] project_slug (zero-dose-burden): 
+  [5/5] project_short_description (TK: short project description): Estimate district-level zero-dose burden by integrating household surveys and routine immunisation data.</code></pre>
+<p>After generation, initialise Git and commit:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a></a><span class="bu">cd</span> zero-dose-burden</span>
+<span id="cb17-2"><a></a><span class="fu">git</span> init</span>
+<span id="cb17-3"><a></a><span class="fu">git</span> add .</span>
+<span id="cb17-4"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Initial commit from AP R template"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-2">
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Python</a></li><li><a href="#tabset-4-2">R</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a></a><span class="ex">ccds</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Terminal interaction</strong>:</p>
+<pre><code>project_name: antimalarial-forecast
+repo_name: antimalarial-forecast
+module_name: antimalarial_forecast
+author_name: NDMC-Beta
+description: Forecast district-level antimalarial medicine requirements and optimise allocation under supply constraints.
+python_version_number: 3.10
+dataset_storage: 1
+environment_manager: 1
+dependency_file: 1
+pydata_packages: 2
+open_source_license: 2
+docs: 1
+include_code_scaffold: 1</code></pre>
+<p>After generation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a></a><span class="bu">cd</span> antimalarial-forecast</span>
+<span id="cb20-2"><a></a><span class="fu">git</span> init <span class="kw">&amp;&amp;</span> <span class="fu">git</span> add . <span class="kw">&amp;&amp;</span> <span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Initial commit"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-4-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a></a><span class="ex">cookiecutter</span> https://github.com/associatedpress/cookiecutter-r-project</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Terminal interaction</strong>:</p>
+<pre><code>full_name: NDMC Beta
+email: teambeta@hackathon.org
+project_name: antimalarial-forecast
+project_slug: (press Enter)
+project_short_description: Forecast district-level antimalarial medicine requirements and optimise allocation under supply constraints.</code></pre>
+<p>Then <code>git init</code> and commit.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-3">
+<div class="panel-tabset">
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Python</a></li><li><a href="#tabset-5-2">R</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a></a><span class="ex">ccds</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Terminal interaction</strong>:</p>
+<pre><code>project_name: measles-alert-rules
+repo_name: measles-alert-rules
+module_name: measles_alert_rules
+author_name: NDMC-Gamma
+description: Evaluate and optimise district-level measles alert rules for earlier and more reliable outbreak detection.
+python_version_number: 3.10
+dataset_storage: 1
+environment_manager: 1
+dependency_file: 1
+pydata_packages: 2
+open_source_license: 2
+docs: 1
+include_code_scaffold: 1</code></pre>
+<p>After generation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a></a><span class="bu">cd</span> measles-alert-rules</span>
+<span id="cb25-2"><a></a><span class="fu">git</span> init <span class="kw">&amp;&amp;</span> <span class="fu">git</span> add . <span class="kw">&amp;&amp;</span> <span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Initial commit"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-5-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a></a><span class="ex">cookiecutter</span> https://github.com/associatedpress/cookiecutter-r-project</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Terminal interaction</strong>:</p>
+<pre><code>full_name: NDMC Gamma
+email: teamgamma@hackathon.org
+project_name: measles-alert-rules
+project_slug: (press Enter)
+project_short_description: Evaluate and optimise district-level measles alert rules for earlier and more reliable outbreak detection.</code></pre>
+<p>Then <code>git init</code> and commit.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-4">
+<div class="panel-tabset">
+<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1">Python</a></li><li><a href="#tabset-6-2">R</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a></a><span class="ex">ccds</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Terminal interaction</strong>:</p>
+<pre><code>project_name: measles-transmission
+repo_name: measles-transmission
+module_name: measles_transmission
+author_name: NDMC-Delta
+description: Model measles transmission and compare control and elimination strategies.
+python_version_number: 3.10
+dataset_storage: 1
+environment_manager: 1
+dependency_file: 1
+pydata_packages: 2
+open_source_license: 2
+docs: 1
+include_code_scaffold: 1</code></pre>
+<p>After generation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a></a><span class="bu">cd</span> measles-transmission</span>
+<span id="cb30-2"><a></a><span class="fu">git</span> init <span class="kw">&amp;&amp;</span> <span class="fu">git</span> add . <span class="kw">&amp;&amp;</span> <span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Initial commit"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-6-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a></a><span class="ex">cookiecutter</span> https://github.com/associatedpress/cookiecutter-r-project</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Terminal interaction</strong>:</p>
+<pre><code>full_name: NDMC Delta
+email: teamdelta@hackathon.org
+project_name: measles-transmission
+project_slug: (press Enter)
+project_short_description: Model measles transmission and compare control and elimination strategies.</code></pre>
+<p>Then <code>git init</code> and commit.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<blockquote>
+<p>[Done] You have a complete project structure, tailored to your challenge, with a Git repository initialised and the first commit made.</p>
+</blockquote>
+</section>
+<section id="viewing-changes-git-diff" class="slide level2">
+<h2>Viewing Changes – git diff</h2>
+<ul>
+<li><code>git diff</code> – shows unstaged changes.</li>
+<li><code>git diff --staged</code> – shows staged changes.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a></a><span class="co"># Modify your data file (e.g., survey data)</span></span>
+<span id="cb33-2"><a></a><span class="bu">echo</span> <span class="st">"Zone1, 2025, 0.12"</span> <span class="op">&gt;&gt;</span> data/raw/survey.csv</span>
+<span id="cb33-3"><a></a><span class="fu">git</span> diff</span>
+<span id="cb33-4"><a></a><span class="fu">git</span> add data/raw/survey.csv</span>
+<span id="cb33-5"><a></a><span class="fu">git</span> diff <span class="at">--staged</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>Use <code>diff</code> to review changes before committing – good practice.</p>
+</blockquote>
+</section>
+<section id="undoing-changes-git-restore-git-reset-git-stash" class="slide level2">
+<h2>Undoing Changes – git restore, git reset, git stash</h2>
+<ul>
+<li><strong>Discard unstaged changes:</strong> <code>git restore &lt;file&gt;</code></li>
+<li><strong>Unstage a file:</strong> <code>git restore --staged &lt;file&gt;</code></li>
+<li><strong>Undo last commit (keep changes):</strong> <code>git reset --soft HEAD~1</code></li>
+<li><strong>Undo last commit (discard changes):</strong> <code>git reset --hard HEAD~1</code></li>
+<li><strong>Save temporary work:</strong> <code>git stash</code>, later <code>git stash pop</code></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a></a><span class="co"># Stash current work (e.g., an incomplete analysis script)</span></span>
+<span id="cb34-2"><a></a><span class="bu">echo</span> <span class="st">"WIP: incidence calculation"</span> <span class="op">&gt;</span> src/incidence_calc.R</span>
+<span id="cb34-3"><a></a><span class="fu">git</span> stash push <span class="at">-m</span> <span class="st">"WIP: incidence calculation"</span></span>
+<span id="cb34-4"><a></a><span class="fu">git</span> stash list</span>
+<span id="cb34-5"><a></a><span class="fu">git</span> stash pop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-practice-undoing-and-stashing" class="slide level2">
+<h2>Exercise: Practice Undoing and Stashing</h2>
+<p><strong>Goal:</strong> Safely discard changes and stash work in progress.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a></a><span class="co"># Create and commit a data loading function</span></span>
+<span id="cb35-2"><a></a><span class="bu">echo</span> <span class="st">"load_data &lt;- function() {}"</span> <span class="op">&gt;</span> src/load_data.R</span>
+<span id="cb35-3"><a></a><span class="fu">git</span> add src/load_data.R</span>
+<span id="cb35-4"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add data loading function"</span></span>
+<span id="cb35-5"><a></a></span>
+<span id="cb35-6"><a></a><span class="co"># Make accidental change</span></span>
+<span id="cb35-7"><a></a><span class="bu">echo</span> <span class="st">"break"</span> <span class="op">&gt;&gt;</span> src/load_data.R</span>
+<span id="cb35-8"><a></a><span class="fu">git</span> restore src/load_data.R   <span class="co"># restore</span></span>
+<span id="cb35-9"><a></a></span>
+<span id="cb35-10"><a></a><span class="co"># Stash a new exploratory notebook</span></span>
+<span id="cb35-11"><a></a><span class="bu">echo</span> <span class="st">"EDA for zero-dose"</span> <span class="op">&gt;</span> notebooks/explore.Rmd</span>
+<span id="cb35-12"><a></a><span class="fu">git</span> stash</span>
+<span id="cb35-13"><a></a><span class="fu">git</span> stash list</span>
+<span id="cb35-14"><a></a><span class="fu">git</span> stash pop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>[Done] You can now safely undo changes and stash work.</p>
+</blockquote>
+</section>
+<section id="branching-isolate-your-work" class="slide level2">
+<h2>Branching – Isolate Your Work</h2>
+<ul>
+<li>A <strong>branch</strong> is a separate line of development.</li>
+<li>Default branch is <code>main</code>.</li>
+<li>Use branches to experiment safely.</li>
+</ul>
+</section>
+<section id="branching-strategy-main-dev-and-feature-branches" class="slide level2">
+<h2>Branching Strategy – main, dev, and feature branches</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 27%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Branch</th>
+<th>Purpose</th>
+<th>Who creates it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><code>main</code></strong></td>
+<td>Production‑ready, stable code. Only merge from <code>dev</code> after testing.</td>
+<td>Created by <code>git init</code> (default).</td>
+</tr>
+<tr class="even">
+<td><strong><code>dev</code></strong></td>
+<td>Integration branch. All feature branches merge here first.</td>
+<td>Created manually from <code>main</code>.</td>
+</tr>
+<tr class="odd">
+<td><strong><code>feature/*</code></strong></td>
+<td>Individual features or experiments. Branch from <code>dev</code>, merge back to <code>dev</code>.</td>
+<td>Each developer creates their own.</td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb36-1"><a></a>main  ──────────────────────────────────────────────────►</span>
+<span id="cb36-2"><a></a>   │</span>
+<span id="cb36-3"><a></a>   └── dev  ──────────────────────────────────────────►</span>
+<span id="cb36-4"><a></a>          │       │       │</span>
+<span id="cb36-5"><a></a>          ├── feature/clean_data ───┘</span>
+<span id="cb36-6"><a></a>          ├── feature/model ────────┘</span>
+<span id="cb36-7"><a></a>          └── feature/viz ──────────┘</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p><strong>Why this matters:</strong> <code>main</code> stays clean and deployable. <code>dev</code> is where integration happens. Feature branches are short‑lived and isolated.</p>
+</blockquote>
+</section>
+<section id="creating-the-dev-branch" class="slide level2">
+<h2>Creating the dev branch</h2>
+<p>After initializing your repository, create the <code>dev</code> branch:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a></a><span class="co"># Switch to main (ensure you are there)</span></span>
+<span id="cb37-2"><a></a><span class="fu">git</span> switch main</span>
+<span id="cb37-3"><a></a></span>
+<span id="cb37-4"><a></a><span class="co"># Create dev branch from main</span></span>
+<span id="cb37-5"><a></a><span class="fu">git</span> switch <span class="at">-c</span> dev</span>
+<span id="cb37-6"><a></a></span>
+<span id="cb37-7"><a></a><span class="co"># Push dev to GitHub and set upstream</span></span>
+<span id="cb37-8"><a></a><span class="fu">git</span> push <span class="at">-u</span> origin dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now your repository has two permanent branches: <code>main</code> and <code>dev</code>.</p>
+</section>
+<section id="feature-branches-from-dev" class="slide level2">
+<h2>Feature branches from dev</h2>
+<p>When starting a new task, always branch from <code>dev</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a></a><span class="co"># Ensure you are on dev with the latest changes</span></span>
+<span id="cb38-2"><a></a><span class="fu">git</span> switch dev</span>
+<span id="cb38-3"><a></a><span class="fu">git</span> pull origin dev</span>
+<span id="cb38-4"><a></a></span>
+<span id="cb38-5"><a></a><span class="co"># Create a feature branch</span></span>
+<span id="cb38-6"><a></a><span class="fu">git</span> switch <span class="at">-c</span> feature/clean_data</span>
+<span id="cb38-7"><a></a></span>
+<span id="cb38-8"><a></a><span class="co"># Work, commit, push...</span></span>
+<span id="cb38-9"><a></a><span class="fu">git</span> add src/clean.R</span>
+<span id="cb38-10"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add data cleaning function"</span></span>
+<span id="cb38-11"><a></a><span class="fu">git</span> push <span class="at">-u</span> origin feature/clean_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="merging-feature-branches-into-dev" class="slide level2">
+<h2>Merging feature branches into dev</h2>
+<p>Once a feature is complete, merge it back into <code>dev</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a></a><span class="co"># Switch to dev and pull latest</span></span>
+<span id="cb39-2"><a></a><span class="fu">git</span> switch dev</span>
+<span id="cb39-3"><a></a><span class="fu">git</span> pull origin dev</span>
+<span id="cb39-4"><a></a></span>
+<span id="cb39-5"><a></a><span class="co"># Merge the feature branch</span></span>
+<span id="cb39-6"><a></a><span class="fu">git</span> merge feature/clean_data</span>
+<span id="cb39-7"><a></a></span>
+<span id="cb39-8"><a></a><span class="co"># Push updated dev</span></span>
+<span id="cb39-9"><a></a><span class="fu">git</span> push origin dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="merging-dev-into-main-release" class="slide level2">
+<h2>Merging dev into main (release)</h2>
+<p>When all features in <code>dev</code> are stable and tested, merge into <code>main</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a></a><span class="co"># Switch to main and pull latest</span></span>
+<span id="cb40-2"><a></a><span class="fu">git</span> switch main</span>
+<span id="cb40-3"><a></a><span class="fu">git</span> pull origin main</span>
+<span id="cb40-4"><a></a></span>
+<span id="cb40-5"><a></a><span class="co"># Merge dev into main</span></span>
+<span id="cb40-6"><a></a><span class="fu">git</span> merge dev</span>
+<span id="cb40-7"><a></a></span>
+<span id="cb40-8"><a></a><span class="co"># Push updated main</span></span>
+<span id="cb40-9"><a></a><span class="fu">git</span> push origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p><strong>Tip:</strong> Use <code>git merge --no-ff dev</code> to keep a visible merge commit.</p>
+</blockquote>
+</section>
+<section id="exercise-branching-and-merging-maindev-strategy" class="slide level2">
+<h2>Exercise: Branching and Merging (main/dev strategy)</h2>
+<p><strong>Goal:</strong> Create a feature branch from <code>dev</code>, make changes, merge back to <code>dev</code>, then merge <code>dev</code> into <code>main</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a></a><span class="co"># 1. Ensure dev is up‑to‑date</span></span>
+<span id="cb41-2"><a></a><span class="fu">git</span> switch dev</span>
+<span id="cb41-3"><a></a><span class="fu">git</span> pull origin dev</span>
+<span id="cb41-4"><a></a></span>
+<span id="cb41-5"><a></a><span class="co"># 2. Create a feature branch for data cleaning</span></span>
+<span id="cb41-6"><a></a><span class="fu">git</span> switch <span class="at">-c</span> feature/clean_data</span>
+<span id="cb41-7"><a></a></span>
+<span id="cb41-8"><a></a><span class="co"># 3. Add and commit your changes</span></span>
+<span id="cb41-9"><a></a><span class="bu">echo</span> <span class="st">"clean_survey &lt;- function(df) { ... }"</span> <span class="op">&gt;</span> src/clean.R</span>
+<span id="cb41-10"><a></a><span class="fu">git</span> add src/clean.R</span>
+<span id="cb41-11"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add data cleaning function"</span></span>
+<span id="cb41-12"><a></a></span>
+<span id="cb41-13"><a></a><span class="co"># 4. Push feature branch</span></span>
+<span id="cb41-14"><a></a><span class="fu">git</span> push <span class="at">-u</span> origin feature/clean_data</span>
+<span id="cb41-15"><a></a></span>
+<span id="cb41-16"><a></a><span class="co"># 5. Merge feature into dev</span></span>
+<span id="cb41-17"><a></a><span class="fu">git</span> switch dev</span>
+<span id="cb41-18"><a></a><span class="fu">git</span> merge feature/clean_data</span>
+<span id="cb41-19"><a></a><span class="fu">git</span> push origin dev</span>
+<span id="cb41-20"><a></a></span>
+<span id="cb41-21"><a></a><span class="co"># 6. Merge dev into main (when ready)</span></span>
+<span id="cb41-22"><a></a><span class="fu">git</span> switch main</span>
+<span id="cb41-23"><a></a><span class="fu">git</span> merge dev</span>
+<span id="cb41-24"><a></a><span class="fu">git</span> push origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>[Done] You have successfully used the <code>main</code>/<code>dev</code>/<code>feature</code> branch strategy.</p>
+</blockquote>
+</section>
+<section id="git-branching-and-history-commands" class="slide level2">
+<h2>Git Branching and History Commands</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 25%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+<th>Example (challenge‑relevant)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git branch</code></td>
+<td>List all branches</td>
+<td><code>git branch</code></td>
+</tr>
+<tr class="even">
+<td><code>git branch &lt;name&gt;</code></td>
+<td>Create a new branch</td>
+<td><code>git branch feature/clean_data</code></td>
+</tr>
+<tr class="odd">
+<td><code>git switch &lt;branch&gt;</code></td>
+<td>Switch to an existing branch (newer, safer)</td>
+<td><code>git switch dev</code></td>
+</tr>
+<tr class="even">
+<td><code>git switch -c &lt;branch&gt;</code></td>
+<td>Create and switch to a new branch</td>
+<td><code>git checkout -b feature/model</code></td>
+</tr>
+<tr class="odd">
+<td><code>git merge &lt;branch&gt;</code></td>
+<td>Merge a branch into the current one</td>
+<td><code>git merge feature/clean_data</code></td>
+</tr>
+<tr class="even">
+<td><code>git rebase &lt;branch&gt;</code></td>
+<td>Rebase current branch onto another (rewrites history)</td>
+<td><code>git rebase dev</code></td>
+</tr>
+<tr class="odd">
+<td><code>git log</code></td>
+<td>Show commit history</td>
+<td><code>git log --oneline --graph</code></td>
+</tr>
+<tr class="even">
+<td><code>git log --oneline</code></td>
+<td>Compact history view</td>
+<td><code>git log --oneline</code></td>
+</tr>
+<tr class="odd">
+<td><code>git log --graph</code></td>
+<td>Visualize branch structure</td>
+<td><code>git log --graph</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Tip:</strong> <code>git switch</code> and <code>git restore</code> are newer commands that separate concerns from the overloaded <code>git checkout</code>. Use them for clarity.</p>
+</blockquote>
+</section>
+<section id="remote-repositories-clone-vs-fork" class="slide level2">
+<h2>Remote Repositories – clone vs fork</h2>
+<ul>
+<li><strong>Clone</strong> – creates a local copy of a remote repository.
+<ul>
+<li><code>git clone https://github.com/user/repo.git</code></li>
+</ul></li>
+<li><strong>Fork</strong> – GitHub‑only: copy a repo to your own account.
+<ul>
+<li>Use to contribute without write access.</li>
+</ul></li>
+</ul>
+</section>
+<section id="exercise-clone-and-push" class="slide level2">
+<h2>Exercise: Clone and Push</h2>
+<p><strong>Goal:</strong> Clone a repository, make a change, and push.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a></a><span class="co"># Clone the team repository</span></span>
+<span id="cb42-2"><a></a><span class="fu">git</span> clone https://github.com/ndmc-davt/zero-dose-project.git</span>
+<span id="cb42-3"><a></a><span class="bu">cd</span> zero-dose-project</span>
+<span id="cb42-4"><a></a></span>
+<span id="cb42-5"><a></a><span class="co"># Make a change (e.g., add a data source note)</span></span>
+<span id="cb42-6"><a></a><span class="bu">echo</span> <span class="st">" - Data source: DHS 2020"</span> <span class="op">&gt;&gt;</span> README.md</span>
+<span id="cb42-7"><a></a><span class="fu">git</span> add README.md</span>
+<span id="cb42-8"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add data source note"</span></span>
+<span id="cb42-9"><a></a><span class="fu">git</span> push origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>[Done] You have pushed a change to a remote repository.</p>
+</blockquote>
+</section>
+<section id="collaboration-pull-and-push" class="slide level2">
+<h2>Collaboration – Pull and Push</h2>
+<ul>
+<li><code>git pull</code> = fetch + merge</li>
+<li><code>git push</code> uploads local commits</li>
+</ul>
+<blockquote>
+<p>Always <code>pull</code> before <code>push</code> to avoid conflicts.</p>
+</blockquote>
+</section>
+<section id="exercise-simulate-collaboration" class="slide level2">
+<h2>Exercise: Simulate Collaboration</h2>
+<p><strong>Pair up:</strong> One person creates a repo, the other forks/clones.</p>
+<ol type="1">
+<li><strong>Owner</strong> creates repo on GitHub, adds Collaborator.</li>
+<li><strong>Collaborator</strong> clones, makes change, pushes.</li>
+<li><strong>Owner</strong> pulls and merges.</li>
+<li>Switch roles.</li>
+</ol>
+<blockquote>
+<p>This is the core of team Git workflow.</p>
+</blockquote>
+</section>
+<section id="handling-merge-conflicts" class="slide level2">
+<h2>Handling Merge Conflicts</h2>
+<ul>
+<li>Conflict: same file, same lines, different changes.</li>
+<li>Git marks conflict with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb43-1"><a></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+<span id="cb43-2"><a></a>method = "mean"</span>
+<span id="cb43-3"><a></a>=======</span>
+<span id="cb43-4"><a></a>method = "median"</span>
+<span id="cb43-5"><a></a>&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Resolve: edit file, remove markers, then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a></a><span class="fu">git</span> add <span class="op">&lt;</span>file<span class="op">&gt;</span></span>
+<span id="cb44-2"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Resolved conflict"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercise-create-and-resolve-a-conflict" class="slide level2">
+<h2>Exercise: Create and Resolve a Conflict</h2>
+<p><strong>Setup:</strong> Two people (or two branches) modify the same line in a script.</p>
+<ul>
+<li><strong>Branch A:</strong> changes line 1 to <code>method = "mean"</code>.</li>
+<li><strong>Branch B:</strong> changes line 1 to <code>method = "median"</code>.</li>
+<li>Merge A into dev, then try to merge B – conflict occurs.</li>
+<li>Resolve by picking one method or combining.</li>
+</ul>
+<blockquote>
+<p>[Done] You have resolved a real conflict.</p>
+</blockquote>
+</section>
+<section id="advanced-git-rebase-vs-merge" class="slide level2">
+<h2>Advanced: git rebase (vs merge)</h2>
+<ul>
+<li><code>rebase</code> rewrites commit history to appear linear.</li>
+<li>Use <strong>only on local branches</strong> before pushing.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a></a><span class="fu">git</span> switch feature</span>
+<span id="cb45-2"><a></a><span class="fu">git</span> rebase dev    <span class="co"># move feature commits on top of dev</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Then fast-forward merge: <code>git switch dev; git merge feature</code></li>
+</ul>
+<blockquote>
+<p><strong>Caution:</strong> Do not rebase shared branches – use merge for public history.</p>
+</blockquote>
+</section>
+<section id="tags-marking-releases" class="slide level2">
+<h2>Tags – Marking Releases</h2>
+<ul>
+<li>Lightweight vs annotated tags.</li>
+<li><code>git tag v1.0</code> (lightweight)</li>
+<li><code>git tag -a v1.0 -m "Release version 1.0"</code></li>
+<li>Push tags: <code>git push origin --tags</code></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a></a><span class="co"># Create annotated tag after completing a milestone (e.g., data ingestion done)</span></span>
+<span id="cb46-2"><a></a><span class="fu">git</span> tag <span class="at">-a</span> v0.1 <span class="at">-m</span> <span class="st">"Data ingestion pipeline complete"</span></span>
+<span id="cb46-3"><a></a><span class="fu">git</span> push origin v0.1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>Tags are great for marking milestones (e.g., submission deadline).</p>
+</blockquote>
+</section>
+<section id="gitignore-ignoring-unwanted-files" class="slide level2">
+<h2>.gitignore – Ignoring Unwanted Files</h2>
+<p>Prevent committing temporary, large, or sensitive files.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode numberSource gitignore number-lines code-with-copy"><code class="sourceCode"><span id="cb47-1"><a></a># Python</span>
+<span id="cb47-2"><a></a>__pycache__/</span>
+<span id="cb47-3"><a></a>*.pyc</span>
+<span id="cb47-4"><a></a>.venv/</span>
+<span id="cb47-5"><a></a></span>
+<span id="cb47-6"><a></a># R</span>
+<span id="cb47-7"><a></a>.Rproj.user</span>
+<span id="cb47-8"><a></a>.Rhistory</span>
+<span id="cb47-9"><a></a>.RData</span>
+<span id="cb47-10"><a></a>renv/library/</span>
+<span id="cb47-11"><a></a></span>
+<span id="cb47-12"><a></a># Jupyter</span>
+<span id="cb47-13"><a></a>.ipynb_checkpoints/</span>
+<span id="cb47-14"><a></a></span>
+<span id="cb47-15"><a></a># Data</span>
+<span id="cb47-16"><a></a>*.csv</span>
+<span id="cb47-17"><a></a>*.nc</span>
+<span id="cb47-18"><a></a>*.h5</span>
+<span id="cb47-19"><a></a></span>
+<span id="cb47-20"><a></a># IDE</span>
+<span id="cb47-21"><a></a>.vscode/</span>
+<span id="cb47-22"><a></a>.idea/</span>
+<span id="cb47-23"><a></a>.DS_Store</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>Add <code>.gitignore</code> early and commit it.</p>
+</blockquote>
+</section>
+<section id="large-file-management-git-lfs" class="slide level2">
+<h2>Large File Management – Git LFS</h2>
+<p><strong>The Problem:</strong> Git stores every version of every file. Large files (datasets, models, images) bloat the repository, make clones slow, and can exceed GitHub’s 100 MB file limit.</p>
+<p><strong>The Solution:</strong> Git Large File Storage (LFS) replaces large files with small text pointers, storing the actual content on a separate server.</p>
+<p><strong>Installing Git LFS:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a></a><span class="co"># Linux (Ubuntu/Debian)</span></span>
+<span id="cb48-2"><a></a><span class="fu">sudo</span> apt install git-lfs</span>
+<span id="cb48-3"><a></a></span>
+<span id="cb48-4"><a></a><span class="co"># macOS</span></span>
+<span id="cb48-5"><a></a><span class="ex">brew</span> install git-lfs</span>
+<span id="cb48-6"><a></a></span>
+<span id="cb48-7"><a></a><span class="co"># Windows</span></span>
+<span id="cb48-8"><a></a><span class="co"># Download from https://git-lfs.com</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Initialise LFS in your repository:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a></a><span class="fu">git</span> lfs install</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Track large file types:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a></a><span class="co"># Track all CSV, NetCDF, and HDF5 files</span></span>
+<span id="cb50-2"><a></a><span class="fu">git</span> lfs track <span class="st">"*.csv"</span></span>
+<span id="cb50-3"><a></a><span class="fu">git</span> lfs track <span class="st">"*.nc"</span></span>
+<span id="cb50-4"><a></a><span class="fu">git</span> lfs track <span class="st">"*.h5"</span></span>
+<span id="cb50-5"><a></a></span>
+<span id="cb50-6"><a></a><span class="co"># Track model files</span></span>
+<span id="cb50-7"><a></a><span class="fu">git</span> lfs track <span class="st">"*.pkl"</span></span>
+<span id="cb50-8"><a></a><span class="fu">git</span> lfs track <span class="st">"*.joblib"</span></span>
+<span id="cb50-9"><a></a></span>
+<span id="cb50-10"><a></a><span class="co"># Track large images</span></span>
+<span id="cb50-11"><a></a><span class="fu">git</span> lfs track <span class="st">"*.tif"</span></span>
+<span id="cb50-12"><a></a><span class="fu">git</span> lfs track <span class="st">"*.png"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Commit the tracking configuration:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a></a><span class="fu">git</span> add .gitattributes</span>
+<span id="cb51-2"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Track large files with Git LFS"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Push as usual:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a></a><span class="fu">git</span> push origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p><strong>Note:</strong> GitHub has a free LFS quota (1 GB storage, 1 GB bandwidth per month). For larger datasets, consider DVC.</p>
+</blockquote>
+</section>
+<section id="dvc-data-version-control-advanced" class="slide level2">
+<h2>DVC – Data Version Control (Advanced)</h2>
+<ul>
+<li><strong>DVC</strong> is a tool that extends Git to handle large datasets and model files.</li>
+<li>It stores data on cloud storage (S3, GCS, Azure) or local drives, while Git tracks small metadata files.</li>
+</ul>
+<p><strong>Install DVC:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a></a><span class="ex">pip</span> install dvc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Initialise DVC:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a></a><span class="ex">dvc</span> init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Track data:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a></a><span class="ex">dvc</span> add data/raw/dataset.csv</span>
+<span id="cb55-2"><a></a><span class="fu">git</span> add data/raw/dataset.csv.dvc</span>
+<span id="cb55-3"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add dataset with DVC"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Push data to remote storage:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a></a><span class="ex">dvc</span> remote add <span class="at">-d</span> myremote s3://my-bucket/data</span>
+<span id="cb56-2"><a></a><span class="ex">dvc</span> push</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p><strong>When to use:</strong> Git LFS for files up to a few GB, DVC for very large datasets (10+ GB) or when you need versioned pipelines.</p>
+</blockquote>
+</section>
+<section id="exercise-large-file-management" class="slide level2">
+<h2>Exercise: Large File Management</h2>
+<p><strong>Goal:</strong> Set up Git LFS and track a large file.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a></a><span class="co"># 1. Install Git LFS (if not already)</span></span>
+<span id="cb57-2"><a></a><span class="fu">git</span> lfs install</span>
+<span id="cb57-3"><a></a></span>
+<span id="cb57-4"><a></a><span class="co"># 2. Create a dummy large file (e.g., 200 MB) simulating a climate dataset</span></span>
+<span id="cb57-5"><a></a><span class="fu">dd</span> if=/dev/zero of=data/raw/raw_climate_data.nc bs=1M count=200</span>
+<span id="cb57-6"><a></a></span>
+<span id="cb57-7"><a></a><span class="co"># 3. Track NetCDF files with LFS</span></span>
+<span id="cb57-8"><a></a><span class="fu">git</span> lfs track <span class="st">"*.nc"</span></span>
+<span id="cb57-9"><a></a></span>
+<span id="cb57-10"><a></a><span class="co"># 4. Stage and commit</span></span>
+<span id="cb57-11"><a></a><span class="fu">git</span> add .gitattributes data/raw/raw_climate_data.nc</span>
+<span id="cb57-12"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add large climate dataset with LFS"</span></span>
+<span id="cb57-13"><a></a></span>
+<span id="cb57-14"><a></a><span class="co"># 5. Push (LFS files will be uploaded separately)</span></span>
+<span id="cb57-15"><a></a><span class="fu">git</span> push origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>[Done] You have successfully added a large file using Git LFS.</p>
+</blockquote>
+</section>
+<section id="github-issues-tracking-tasks" class="slide level2">
+<h2>GitHub Issues – Tracking Tasks</h2>
+<ul>
+<li>Use Issues to track bugs, features, or tasks.</li>
+<li>Each issue has a number, labels, milestones, and assignees.</li>
+<li>Link commits with <code>#issue-number</code> to automatically close.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Fix bug #42"</span></span>
+<span id="cb58-2"><a></a><span class="fu">git</span> push</span>
+<span id="cb58-3"><a></a><span class="co"># When merged, issue #42 auto-closes.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>Issues are essential for team coordination.</p>
+</blockquote>
+</section>
+<section id="github-projects-kanban-board" class="slide level2">
+<h2>GitHub Projects – Kanban Board</h2>
+<ul>
+<li>Create a Project board (e.g., “Hackathon Tasks”).</li>
+<li>Add columns: To Do, In Progress, Done.</li>
+<li>Link issues to cards.</li>
+<li>Visualise progress at a glance.</li>
+</ul>
+<blockquote>
+<p>Great for managing hackathon workflow.</p>
+</blockquote>
+</section>
+<section id="github-actions-cicd" class="slide level2">
+<h2>GitHub Actions – CI/CD</h2>
+<ul>
+<li>Automate testing, linting, deployment.</li>
+<li>Define workflows in <code>.github/workflows/*.yml</code>.</li>
+</ul>
+<p>Example Python test workflow:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb59-1"><a></a><span class="fu">name</span><span class="kw">:</span><span class="at"> CI</span></span>
+<span id="cb59-2"><a></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">]</span></span>
+<span id="cb59-3"><a></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb59-4"><a></a><span class="at">  </span><span class="fu">test</span><span class="kw">:</span></span>
+<span id="cb59-5"><a></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb59-6"><a></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb59-7"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb59-8"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-python@v5</span></span>
+<span id="cb59-9"><a></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb59-10"><a></a><span class="at">          </span><span class="fu">python-version</span><span class="kw">:</span><span class="at"> </span><span class="st">'3.12'</span></span>
+<span id="cb59-11"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
+<span id="cb59-12"><a></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> pip install -r requirements.txt</span></span>
+<span id="cb59-13"><a></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Run tests</span></span>
+<span id="cb59-14"><a></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> pytest</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>Set up Actions to ensure code quality automatically.</p>
+</blockquote>
+</section>
+<section id="exercise-github-issues-and-projects" class="slide level2">
+<h2>Exercise: GitHub Issues and Projects</h2>
+<p><strong>Goal:</strong> Create an issue and a project board.</p>
+<ol type="1">
+<li>On your GitHub repo, go to <strong>Issues</strong> → New issue.</li>
+<li>Create an issue: “Add data validation function” (or similar for your challenge).</li>
+<li>Go to <strong>Projects</strong> → New project (Kanban).</li>
+<li>Add the issue to the “To Do” column.</li>
+<li>Assign yourself and a milestone (optional).</li>
+</ol>
+<blockquote>
+<p>This is how you manage tasks collaboratively.</p>
+</blockquote>
+</section>
+<section id="environment-management-using-uv-python-and-renv-r" class="slide level2">
+<h2>Environment Management – Using uv (Python) and renv (R)</h2>
+<p>After installing <code>uv</code> (earlier), here is how to use it in your project.</p>
+<div class="panel-tabset">
+<ul id="tabset-8" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-8-1">Python (uv)</a></li><li><a href="#tabset-8-2">R (renv)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1">
+<p><strong>Initialise a project:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a></a><span class="bu">cd</span> your_project</span>
+<span id="cb60-2"><a></a><span class="ex">uv</span> init</span>
+<span id="cb60-3"><a></a><span class="ex">uv</span> venv</span>
+<span id="cb60-4"><a></a><span class="bu">source</span> .venv/bin/activate   <span class="co"># Windows: .venv\Scripts\activate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Add dependencies:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a></a><span class="ex">uv</span> add pandas numpy scikit-learn</span>
+<span id="cb61-2"><a></a><span class="ex">uv</span> lock                <span class="co"># creates uv.lock – commit this!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>When a teammate clones:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a></a><span class="ex">uv</span> sync                <span class="co"># installs exact versions from uv.lock</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>Commit <code>pyproject.toml</code> and <code>uv.lock</code> to Git.</p>
+</blockquote>
+</div>
+<div id="tabset-8-2">
+<p><strong>Install <code>renv</code> (once per machine):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a><span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Initialise a project:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a></a>renv<span class="sc">::</span><span class="fu">init</span>()   <span class="co"># creates renv.lock and renv/activate.R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Add a package:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb65-2"><a></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()   <span class="co"># updates renv.lock</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>When a teammate clones:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a>renv<span class="sc">::</span><span class="fu">restore</span>()    <span class="co"># installs packages from renv.lock</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote>
+<p>Commit <code>renv.lock</code> and <code>renv/.gitignore</code> to Git.</p>
+</blockquote>
+</div>
+</div>
+</div>
+</section>
+<section id="project-structure-ccds-crosslanguage" class="slide level2">
+<h2>Project Structure – CCDS (Cross‑Language)</h2>
+<p>A clean, reproducible project structure works for both Python and R. The AP R template generates a slightly different structure (with <code>analysis/</code>, <code>etl/</code>, <code>publish/</code>, <code>viz/</code>), but it is equally valid. If you prefer the standard CCDS layout, use the manual alternative.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb67-1"><a></a>project-name/</span>
+<span id="cb67-2"><a></a>├── checkpoints/          # Model checkpoints (if applicable)</span>
+<span id="cb67-3"><a></a>├── data/</span>
+<span id="cb67-4"><a></a>│   ├── raw/              # Original, immutable data</span>
+<span id="cb67-5"><a></a>│   └── processed/        # Cleaned, model‑ready data</span>
+<span id="cb67-6"><a></a>├── docs/                 # Project documentation</span>
+<span id="cb67-7"><a></a>├── notebooks/            # Jupyter (Python) or R Markdown/Quarto</span>
+<span id="cb67-8"><a></a>├── src/                  # Reusable functions (Python) or R/</span>
+<span id="cb67-9"><a></a>├── scripts/              # Analysis pipelines</span>
+<span id="cb67-10"><a></a>├── tests/                # Unit tests</span>
+<span id="cb67-11"><a></a>├── models/               # Saved model artifacts</span>
+<span id="cb67-12"><a></a>├── reports/              # Generated reports, figures</span>
+<span id="cb67-13"><a></a>├── pyproject.toml        # Python (uv)</span>
+<span id="cb67-14"><a></a>├── requirements.txt      # Python fallback</span>
+<span id="cb67-15"><a></a>├── renv.lock             # R (renv)</span>
+<span id="cb67-16"><a></a>├── README.md</span>
+<span id="cb67-17"><a></a>└── .gitignore</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="team-challenges-final-project-four-groups" class="slide level2">
+<h2>Team Challenges – Final Project (Four Groups)</h2>
+<p>Divide into four teams. Each team tackles one challenge using the <code>main</code>/<code>dev</code>/<code>feature</code> branch model.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Challenge</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Alpha</strong></td>
+<td>Zero‑dose Burden Mapping</td>
+</tr>
+<tr class="even">
+<td><strong>Beta</strong></td>
+<td>Antimalarial Medicine Forecasting</td>
+</tr>
+<tr class="odd">
+<td><strong>Gamma</strong></td>
+<td>Measles Alert Rule Optimisation</td>
+</tr>
+<tr class="even">
+<td><strong>Delta</strong></td>
+<td>Measles Transmission Modelling</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Instructions with branch strategy:</strong></p>
+<ol type="1">
+<li><p><strong>One member</strong> creates a GitHub repo and adds all team members as collaborators.</p></li>
+<li><p><strong>Everyone clones</strong> the repo.</p></li>
+<li><p><strong>Create the <code>dev</code> branch</strong> from <code>main</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a></a><span class="fu">git</span> checkout <span class="at">-b</span> dev</span>
+<span id="cb68-2"><a></a><span class="fu">git</span> push <span class="at">-u</span> origin dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Each member</strong> creates a <strong>feature branch from <code>dev</code></strong> (e.g., <code>feature/data-load</code>, <code>feature/clean</code>, <code>feature/model</code>, <code>feature/viz</code>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a></a><span class="fu">git</span> switch dev</span>
+<span id="cb69-2"><a></a><span class="fu">git</span> pull origin dev</span>
+<span id="cb69-3"><a></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/your-task</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Work in parallel</strong> – write code, commit, push to your feature branch.</p></li>
+<li><p><strong>Open Pull Requests</strong> (or merge locally) to merge each feature into <code>dev</code>.</p></li>
+<li><p><strong>Resolve any conflicts</strong> that arise during merges.</p></li>
+<li><p>When all features are integrated into <code>dev</code> and tested, <strong>merge <code>dev</code> into <code>main</code></strong>.</p></li>
+<li><p><strong>Final repo</strong> must include:</p>
+<ul>
+<li>Project structure (CCDS or AP template).</li>
+<li>Environment lock file (<code>uv.lock</code> or <code>renv.lock</code>).</li>
+<li><code>.gitignore</code>.</li>
+<li><code>README.md</code>.</li>
+<li>Issues/Project board.</li>
+<li>Large files managed with LFS/DVC.</li>
+</ul></li>
+</ol>
+<blockquote>
+<p>This workflow mirrors a real‑world collaborative data science project.</p>
+</blockquote>
+</section>
+<section id="submission-success-checklist" class="slide level2">
+<h2>Submission Success Checklist</h2>
+<p>Before final presentation, verify:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Git repository initialised and pushed to GitHub.</label></li>
+<li><label><input type="checkbox">Environment lock file (<code>uv.lock</code> or <code>renv.lock</code>) committed.</label></li>
+<li><label><input type="checkbox"><code>.gitignore</code> excludes <code>data/</code>, <code>.venv/</code>, <code>renv/library/</code>, cache.</label></li>
+<li><label><input type="checkbox">Notebook outputs cleared (or not committed).</label></li>
+<li><label><input type="checkbox">Project structure is clean and organised.</label></li>
+<li><label><input type="checkbox"><code>README.md</code> explains the project and reproduction steps.</label></li>
+<li><label><input type="checkbox">Both <code>main</code> and <code>dev</code> branches exist and are pushed.</label></li>
+<li><label><input type="checkbox">At least one feature branch has been merged into <code>dev</code> (and then into <code>main</code>).</label></li>
+<li><label><input type="checkbox">Issues and project board used to track progress.</label></li>
+<li><label><input type="checkbox">Large files (if any) are managed with Git LFS or DVC.</label></li>
+</ul>
+</section>
+<section id="git-command-cheat-sheet-12-local-basic-commands" class="slide level2">
+<h2>Git Command Cheat Sheet (1/2) – Local &amp; Basic Commands</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 41%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git init</code></td>
+<td>Initialise a new repository</td>
+<td><code>git init</code></td>
+</tr>
+<tr class="even">
+<td><code>git status</code></td>
+<td>Show working directory and staging status</td>
+<td><code>git status</code></td>
+</tr>
+<tr class="odd">
+<td><code>git add &lt;file&gt;</code></td>
+<td>Stage changes for commit</td>
+<td><code>git add README.md</code></td>
+</tr>
+<tr class="even">
+<td><code>git add .</code></td>
+<td>Stage all changes in current directory</td>
+<td><code>git add .</code></td>
+</tr>
+<tr class="odd">
+<td><code>git commit -m "msg"</code></td>
+<td>Commit staged changes</td>
+<td><code>git commit -m "Add data"</code></td>
+</tr>
+<tr class="even">
+<td><code>git log</code></td>
+<td>Show commit history</td>
+<td><code>git log --oneline --graph</code></td>
+</tr>
+<tr class="odd">
+<td><code>git diff</code></td>
+<td>Show unstaged changes</td>
+<td><code>git diff</code></td>
+</tr>
+<tr class="even">
+<td><code>git diff --staged</code></td>
+<td>Show staged changes</td>
+<td><code>git diff --staged</code></td>
+</tr>
+<tr class="odd">
+<td><code>git restore &lt;file&gt;</code></td>
+<td>Discard unstaged changes</td>
+<td><code>git restore src/script.py</code></td>
+</tr>
+<tr class="even">
+<td><code>git restore --staged &lt;file&gt;</code></td>
+<td>Unstage a file (keep changes)</td>
+<td><code>git restore --staged data.csv</code></td>
+</tr>
+<tr class="odd">
+<td><code>git reset --soft HEAD~1</code></td>
+<td>Undo last commit, keep changes staged</td>
+<td><code>git reset --soft HEAD~1</code></td>
+</tr>
+<tr class="even">
+<td><code>git reset HEAD~1</code></td>
+<td>Undo last commit, unstage changes</td>
+<td><code>git reset HEAD~1</code></td>
+</tr>
+<tr class="odd">
+<td><code>git reset --hard HEAD~1</code></td>
+<td>Undo last commit, discard changes</td>
+<td><code>git reset --hard HEAD~1</code></td>
+</tr>
+<tr class="even">
+<td><code>git stash</code></td>
+<td>Temporarily save uncommitted changes</td>
+<td><code>git stash push -m "WIP"</code></td>
+</tr>
+<tr class="odd">
+<td><code>git stash list</code></td>
+<td>List stashed changes</td>
+<td><code>git stash list</code></td>
+</tr>
+<tr class="even">
+<td><code>git stash pop</code></td>
+<td>Apply and remove latest stash</td>
+<td><code>git stash pop</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="git-command-cheat-sheet-22-remote-branching-advanced" class="slide level2">
+<h2>Git Command Cheat Sheet (2/2) – Remote, Branching, &amp; Advanced</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 41%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git clone &lt;url&gt;</code></td>
+<td>Copy a remote repository locally</td>
+<td><code>git clone https://github.com/user/repo.git</code></td>
+</tr>
+<tr class="even">
+<td><code>git branch</code></td>
+<td>List branches</td>
+<td><code>git branch</code></td>
+</tr>
+<tr class="odd">
+<td><code>git branch &lt;name&gt;</code></td>
+<td>Create a new branch</td>
+<td><code>git branch feature/clean</code></td>
+</tr>
+<tr class="even">
+<td><code>git switch &lt;branch&gt;</code></td>
+<td>Switch to an existing branch</td>
+<td><code>git switch dev</code></td>
+</tr>
+<tr class="odd">
+<td><code>git checkout -b &lt;branch&gt;</code></td>
+<td>Create and switch to a new branch</td>
+<td><code>git checkout -b feature/model</code></td>
+</tr>
+<tr class="even">
+<td><code>git merge &lt;branch&gt;</code></td>
+<td>Merge a branch into current</td>
+<td><code>git merge feature/clean</code></td>
+</tr>
+<tr class="odd">
+<td><code>git rebase &lt;branch&gt;</code></td>
+<td>Rebase current branch onto another</td>
+<td><code>git rebase dev</code></td>
+</tr>
+<tr class="even">
+<td><code>git pull</code></td>
+<td>Fetch and merge remote changes</td>
+<td><code>git pull origin dev</code></td>
+</tr>
+<tr class="odd">
+<td><code>git push</code></td>
+<td>Upload local commits to remote</td>
+<td><code>git push origin dev</code></td>
+</tr>
+<tr class="even">
+<td><code>git push -u origin &lt;branch&gt;</code></td>
+<td>Push and set upstream</td>
+<td><code>git push -u origin feature/model</code></td>
+</tr>
+<tr class="odd">
+<td><code>git remote -v</code></td>
+<td>List remote repositories</td>
+<td><code>git remote -v</code></td>
+</tr>
+<tr class="even">
+<td><code>git remote add &lt;name&gt; &lt;url&gt;</code></td>
+<td>Add a new remote</td>
+<td><code>git remote add origin git@github.com:user/repo.git</code></td>
+</tr>
+<tr class="odd">
+<td><code>git fetch</code></td>
+<td>Download remote changes without merging</td>
+<td><code>git fetch origin</code></td>
+</tr>
+<tr class="even">
+<td><code>git tag</code></td>
+<td>List tags</td>
+<td><code>git tag</code></td>
+</tr>
+<tr class="odd">
+<td><code>git tag -a &lt;name&gt; -m "msg"</code></td>
+<td>Create an annotated tag</td>
+<td><code>git tag -a v1.0 -m "Release v1.0"</code></td>
+</tr>
+<tr class="even">
+<td><code>git push origin --tags</code></td>
+<td>Push tags to remote</td>
+<td><code>git push origin --tags</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Use <code>git help &lt;command&gt;</code> or <code>git &lt;command&gt; --help</code> for more details.</p>
+</blockquote>
+</section>
+<section id="git-tips-and-tricks" class="slide level2">
+<h2>Git Tips and Tricks</h2>
+<ul>
+<li><strong>Commit early, commit often</strong> – small, frequent commits are easier to review and revert if needed.</li>
+<li><strong>Write meaningful commit messages</strong> – use imperative mood, keep under 50 characters, explain <em>why</em> not <em>how</em>.</li>
+<li><strong>Run <code>git status</code> before and after every command</strong> – it prevents surprises and keeps you oriented.</li>
+<li><strong>Always <code>git pull</code> before you <code>git push</code></strong> – this avoids unnecessary merge conflicts.</li>
+<li><strong>Use branches for every new feature or experiment</strong> – keep <code>main</code> stable; branch names like <code>feature/description</code> help.</li>
+<li><strong>Stash unfinished work</strong> – use <code>git stash push -m "WIP"</code> to save work in progress, then <code>git stash pop</code> to restore.</li>
+<li><strong>Review changes with <code>git diff</code> before staging</strong> – catch mistakes before they become commits.</li>
+<li><strong>Use <code>git log --oneline --graph</code> for a clear history view</strong> – visualise branches and merges at a glance.</li>
+<li><strong>Add <code>.gitignore</code> at the start</strong> – prevent accidental commits of data files, credentials, or cache folders.</li>
+<li><strong>Use Git LFS or DVC for large files</strong> – avoid repository bloat and stay within GitHub’s size limits.</li>
+<li><strong>If in doubt, <code>git help</code> or <code>git &lt;command&gt; --help</code></strong> – the built‑in documentation is excellent.</li>
+</ul>
+</section>
+<section id="using-git-from-rstudio-and-vs-code" class="slide level2">
+<h2>Using Git from RStudio and VS Code</h2>
+<h3 id="rstudio">RStudio</h3>
+<ul>
+<li>Create a new project from an existing directory or clone a repository.</li>
+<li>Use the <strong>Git</strong> pane to stage, commit, push, and pull.</li>
+<li>View history and diff changes with a GUI.</li>
+</ul>
+<h3 id="vs-code">VS Code</h3>
+<ul>
+<li>The built-in Source Control panel shows changed files.</li>
+<li>Stage changes, commit, push/pull with one click.</li>
+<li>Extensions like <strong>GitLens</strong> add powerful history visualisation.</li>
+</ul>
+<blockquote>
+<p>Both tools work seamlessly with the same Git commands.</p>
+</blockquote>
+</section>
+<section id="summary-the-r-python-hackathon-toolkit" class="slide level2">
+<h2>Summary – The R &amp; Python Hackathon Toolkit</h2>
+<ul>
+<li><strong>Git</strong> – tracks code, enables branching, works offline.</li>
+<li><strong>GitHub</strong> – collaboration platform with Issues, Projects, Actions.</li>
+<li><strong>Git LFS / DVC</strong> – manage large datasets and models.</li>
+<li><strong>Environment managers</strong> – <code>uv</code> (Python) and <code>renv</code> (R) for reproducibility.</li>
+<li><strong>Project templates</strong> – CCDS (Python) and Associated Press R template (R).</li>
+<li><strong>Branch strategy</strong> – <code>main</code> for production, <code>dev</code> for integration, <code>feature/*</code> for new work.</li>
+</ul>
+<blockquote>
+<p><strong>Remember:</strong> Always <code>pull</code> before you <code>push</code>, write clear commit messages, and use issues to track progress.</p>
+</blockquote>
+</section>
+<section class="slide level2">
+
+</section>
+<section id="thank-you-happy-hacking" class="title-slide slide level1 center" style="display: flex; justify-content: center; align-items: center; height: 100vh; font-size: 1.5em; color: red; text-align: center;">
+<h1>Thank You &amp; Happy Hacking!</h1>
+
+</section>
+
+<section class="slide level2">
+
+</section>
+<section id="references" class="title-slide slide level1 allowframebreaks smaller scrollable" data-frameoptions="shrink,squeeze">
+<h1>References</h1>
+<div id="refs" style="text-align: left;" role="list">
+<ul>
+<li>Pro Git Book: https://git-scm.com/book</li>
+<li>GitHub Skills: https://skills.github.com</li>
+<li>uv Documentation: https://docs.astral.sh/uv/</li>
+<li>renv Documentation: https://rstudio.github.io/renv/</li>
+<li>Git LFS: https://git-lfs.com</li>
+<li>DVC: https://dvc.org</li>
+<li>Cookiecutter: https://cookiecutter.readthedocs.io/</li>
+<li>CCDS Documentation: https://cookiecutter-data-science.drivendata.org/</li>
+<li>Associated Press R Template: https://github.com/associatedpress/cookiecutter-r-project</li>
+</ul>
+</div>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>EPHI / NDMC Hackathon — 2026</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
