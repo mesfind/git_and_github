@@ -1,2 +1,9 @@
 /.quarto/
 **/*.quarto_ipynb
+
+.DS_Store
+.gitignore
+.RData
+.Rhistory
+mytheme_pdf.scss
+mytheme.scs
